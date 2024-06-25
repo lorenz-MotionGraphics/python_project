@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
-import re
 
 # Variable to store the current file path
 current_file_path = None
@@ -62,7 +61,7 @@ def render_markdown(content):
             text_area.insert(tk.END, line[2:] + '\n', 'heading1')
         else:
             text_area.insert(tk.END, line + '\n')
-    
+
 def render_plain_text(content):
     text_area.delete(1.0, tk.END)
     text_area.insert(tk.END, content)
@@ -80,7 +79,6 @@ root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
 root.minsize(500, 500)
 root.maxsize(500, 500)
 root.resizable(True, False)
-
 
 # Create a toolbar frame
 toolbar = tk.Frame(root, bd=1, relief=tk.RAISED)
