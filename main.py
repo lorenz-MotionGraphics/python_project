@@ -10,10 +10,7 @@ def open_file():
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 file_content = file.read()
-                if file_path.endswith('.md'):
-                    render_markdown(file_content)
-                else:
-                    render_plain_text(file_content)
+                render_markdown(file_content)
             root.title(f"Markdown Editor - {file_path}")
             current_file_path = file_path
         except Exception as e:
