@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox
 import re
 
 def open_file():
-    file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("Markdown files", "*.md"), ("All files", "*.*")])
+    file_path = filedialog.askopenfilename(filetypes=[("All files", "*.*")])
     if file_path:
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -17,7 +17,7 @@ def open_file():
             messagebox.showerror("Error", f"Failed to open file: {e}")
 
 def save_file():
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt"), ("Markdown files", "*.md"), ("All files", "*.*")])
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("All files", "*.*")])
     if file_path:
         try:
             with open(file_path, 'w', encoding='utf-8') as file:
