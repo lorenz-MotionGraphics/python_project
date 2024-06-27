@@ -10,7 +10,7 @@ def open_file():
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 file_content = file.read()
-                render_markdown(file_content)
+                render_plain_text(file_content)
             root.title(f"Markdown Editor - {file_path}")
             current_file_path = file_path
         except Exception as e:
@@ -36,16 +36,6 @@ def write_to_file(file_path):
         current_file_path = file_path
     except Exception as e:
         messagebox.showerror("Error", f"Failed to save file: {e}")
-
-def render_markdown(content):
-    text_area.delete(1.0, tk.END)
-    for line in content.split('\n'):
-        if line.startswith('## '):
-            text_area.insert(tk.END, line[3:] + '\n', 'heading2')
-        elif line.startswith('# '):
-            text_area.insert(tk.END, line[2:] + '\n', 'heading1')
-        else:
-            text_area.insert(tk.END, line + '\n')
 
 def render_plain_text(content):
     text_area.delete(1.0, tk.END)
@@ -80,9 +70,6 @@ font_menu.add_command(label="Arial", command=lambda: text_area.config(font=("Ari
 
 text_area = tk.Text(root, wrap='word', font=("Arial", 12))
 text_area.pack(expand=1, fill='both')
-
-text_area.tag_config('heading1', font=('Arial', 16, 'bold'))
-text_area.tag_config('heading2', font=('Arial', 14, 'bold'))
 
 root.bind('<Control-s>', lambda event: save_file())
 
