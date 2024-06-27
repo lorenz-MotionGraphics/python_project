@@ -40,18 +40,32 @@ def write_to_file(file_path):
 def render_plain_text(content):
     text_area.delete(1.0, tk.END)
     text_area.insert(tk.END, content)
+    update_line_numbers()
+
+def update_line_numbers(event=None):
+    line_numbers = get_line_numbers()
+    line_number_bar.config(state=tk.NORMAL)
+    line_number_bar.delete(1.0, tk.END)
+    line_number_bar.insert(tk.END, line_numbers)
+    line_number_bar.config(state=tk.DISABLED)
+
+def get_line_numbers():
+    output = ''
+    row, col = text_area.index('end-1c').split('.')
+    for i in range(1, int(row)):
+        output += str(i) + '\n'
+    if not output:
+        output = '1\n'  # Display 1 when the editor is empty
+    return output
 
 root = tk.Tk()
-root.title("Markdown Editor")
+root.title("Text Editor")
 root.iconbitmap("favicon.ico")
 screen_width, screen_height = root.winfo_screenwidth(), root.winfo_screenheight()
 window_width, window_height = 700, 500
 center_x, center_y = int(screen_width / 2 - window_width / 2), int(screen_height / 2 - window_height / 2)
 root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
 root.resizable(True, False)
-
-toolbar = tk.Frame(root, bd=1, relief=tk.RAISED)
-toolbar.pack(side=tk.TOP, fill=tk.X)
 
 menubar = tk.Menu(root)
 root.config(menu=menubar)
@@ -68,9 +82,29 @@ font_menu = tk.Menu(menubar, tearoff=0)
 menubar.add_cascade(label="Font", menu=font_menu)
 font_menu.add_command(label="Arial", command=lambda: text_area.config(font=("Arial", 12)))
 
-text_area = tk.Text(root, wrap='word', font=("Arial", 12))
-text_area.pack(expand=1, fill='both')
+# Create a frame for the text area and line numbers
+frame = tk.Frame(root)
+frame.pack(expand=1, fill='both')
+
+# Create a Text widget for line numbers
+line_number_bar = tk.Text(frame, width=4, padx=3, takefocus=0, border=0, background='lightgrey', state='disabled')
+line_number_bar.pack(side='left', fill='y')
+
+# Create a Text widget for the editor
+text_area = tk.Text(frame, wrap='word', font=("Arial", 12))
+text_area.pack(expand=1, fill='both', side='right')
+
+# Bind events to update line numbers
+text_area.bind('<KeyRelease>', update_line_numbers)
+text_area.bind('<MouseWheel>', update_line_numbers)
+text_area.bind('<Button-1>', update_line_numbers)
+text_area.bind('<Return>', update_line_numbers)
+text_area.bind('<BackSpace>', update_line_numbers)
+text_area.bind('<Delete>', update_line_numbers)
 
 root.bind('<Control-s>', lambda event: save_file())
+
+# Initial call to update line numbers
+update_line_numbers()
 
 root.mainloop()
