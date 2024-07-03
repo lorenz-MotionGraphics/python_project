@@ -1,19 +1,16 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import os
+import sys
 
-# Set the application ID for Windows taskbar grouping
-try:
-    from ctypes import windll  # Only exists on Windows.
-
-    myappid = "benchplusplus.textediting.pythontext.version"
-    windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-except ImportError:
-    pass
+# Determine if running in a PyInstaller bundle
+if hasattr(sys, '_MEIPASS'):
+    basedir = sys._MEIPASS
+else:
+    basedir = os.path.dirname(__file__)
 
 # Global variables
 current_file_path = None
-basedir = os.path.dirname(__file__)
 
 # Function to open a file
 def open_file():
@@ -79,10 +76,10 @@ def get_line_numbers():
 
 # Initialize the main window
 root = tk.Tk()
-root.title("B++ Junior Professional File Editor")
+root.title("Text Editor")
 
 # Set the window icon
-icon_path = os.path.join(basedir, "icons", "favicon.ico")
+icon_path = os.path.join(basedir, 'icons', 'favicon.ico')
 root.iconbitmap(icon_path)
 
 # Center the window on the screen

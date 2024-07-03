@@ -7,7 +7,7 @@ a = Analysis(
     pathex=['.'],
     binaries=[],
     datas=[
-        ('icons/favicon.ico', 'icons'),
+        ('icons/favicon.ico', 'icons'),  # Ensure the icon is copied correctly
     ],
     hiddenimports=[],
     hookspath=[],
@@ -35,7 +35,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='icons/favicon.ico',
+    icon='icons/favicon.ico',  # Icon path
 )
 
 coll = COLLECT(
