@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox
 import os
 
 current_file_path = None
+basedir = os.path.dirname(__file__)
 
 def open_file():
     global current_file_path
@@ -101,5 +102,6 @@ text_area.bind('<Delete>', update_line_numbers)
 
 root.bind('<Control-s>', lambda event: save_file())
 update_line_numbers()
+window.iconbitmap(os.path.join(basedir, "icons", "favicon.ico"))
 
 root.mainloop()
