@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
+import os
 
 current_file_path = None
 
@@ -60,14 +61,20 @@ def get_line_numbers():
 
 root = tk.Tk()
 root.title("Text Editor")
-root.iconbitmap("favicon.ico")
+
+# Ensure the icon path is correct
+icon_path = os.path.join(os.path.dirname(__file__), 'favicon.ico')
+root.iconbitmap(icon_path)
+
 screen_width, screen_height = root.winfo_screenwidth(), root.winfo_screenheight()
 window_width, window_height = 700, 500
 center_x, center_y = int(screen_width / 2 - window_width / 2), int(screen_height / 2 - window_height / 2)
 root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
 root.resizable(True, False)
+
 menubar = tk.Menu(root)
 root.config(menu=menubar)
+
 file_menu = tk.Menu(menubar, tearoff=0)
 menubar.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="Open", command=open_file)
@@ -75,21 +82,28 @@ file_menu.add_command(label="Save", command=save_file)
 file_menu.add_command(label="Save As", command=save_file_as)
 file_menu.add_separator()
 file_menu.add_command(label="Quit", command=root.quit)
+
 font_menu = tk.Menu(menubar, tearoff=0)
 menubar.add_cascade(label="Font", menu=font_menu)
 font_menu.add_command(label="Arial", command=lambda: text_area.config(font=("Arial", 12)))
+
 frame = tk.Frame(root)
 frame.pack(expand=1, fill='both')
+
 line_number_bar = tk.Text(frame, width=4, padx=3, takefocus=0, border=0, background='lightgrey', state='disabled')
 line_number_bar.pack(side='left', fill='y')
+
 text_area = tk.Text(frame, wrap='word', font=("Arial", 12))
 text_area.pack(expand=1, fill='both', side='right')
+
 text_area.bind('<KeyRelease>', update_line_numbers)
 text_area.bind('<MouseWheel>', update_line_numbers)
 text_area.bind('<Button-1>', update_line_numbers)
 text_area.bind('<Return>', update_line_numbers)
 text_area.bind('<BackSpace>', update_line_numbers)
 text_area.bind('<Delete>', update_line_numbers)
+
 root.bind('<Control-s>', lambda event: save_file())
 update_line_numbers()
+
 root.mainloop()
