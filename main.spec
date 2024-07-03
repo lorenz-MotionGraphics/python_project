@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
 
-project_dir = os.path.dirname(__file__)
+project_dir = os.getcwd()
 
 block_cipher = None
 
