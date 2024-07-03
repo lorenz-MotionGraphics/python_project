@@ -82,7 +82,7 @@ root = tk.Tk()
 root.title("B++ Junior Professional File Editor")
 
 # Set the window icon
-icon_path = os.path.join(basedir, "icons", "favicon.ico")
+icon_path = os.path.join(basedir, "favicon.ico")
 root.iconbitmap(icon_path)
 
 # Center the window on the screen

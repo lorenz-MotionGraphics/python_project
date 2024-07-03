@@ -1,11 +1,15 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+# The path to your project directory
+project_dir = r'C:\Users\USER\python_project'
 
 a = Analysis(
     ['main.py'],
-    pathex=[],
+    pathex=[project_dir],
     binaries=[],
-    datas=[],
+    datas=[
+        (os.path.join(project_dir, 'icons', 'favicon.ico'), 'icons')
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -13,6 +17,7 @@ a = Analysis(
     excludes=[],
     noarchive=False,
 )
+
 pyz = PYZ(a.pure)
 
 exe = EXE(
@@ -34,5 +39,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icons\\favicon.ico'],
+    icon=os.path.join(project_dir, 'icons', 'favicon.ico'),
 )
