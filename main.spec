@@ -1,13 +1,16 @@
 # -*- mode: python ; coding: utf-8 -*-
+import os
+
+project_dir = os.path.dirname(__file__)
 
 block_cipher = None
 
 a = Analysis(
     ['main.py'],
-    pathex=['.'],
+    pathex=[project_dir],
     binaries=[],
     datas=[
-        ('icons/favicon.ico', 'icons'),  # Ensure the icon is copied correctly
+        (os.path.join(project_dir, 'icons', 'favicon.ico'), 'icons')
     ],
     hiddenimports=[],
     hookspath=[],
@@ -35,7 +38,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='icons/favicon.ico',  # Icon path
+    icon=os.path.join(project_dir, 'icons', 'favicon.ico'),  # Path to the icon file
 )
 
 coll = COLLECT(
