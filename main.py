@@ -76,7 +76,7 @@ def get_line_numbers():
 
 # Initialize the main window
 root = tk.Tk()
-root.title("Text Editor")
+root.title("Junior Professional File Editor")
 
 # Set the window icon
 icon_path = os.path.join(basedir, 'icons', 'favicon.ico')
