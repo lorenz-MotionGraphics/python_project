@@ -36,7 +36,7 @@ This is a simple file editor application built using Python's `tkinter` library.
 
 4. Run the application:
     ```bash
-    python editor.py
+    python main.py
     ```
 
 ## Usage
